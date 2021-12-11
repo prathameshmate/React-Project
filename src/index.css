@@ -1,0 +1,51 @@
+*{
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 20px;
+    padding: 10px   ;
+    display: flex;
+    justify-content: center;
+
+}
+.container .inpfeild{
+    display: flex;
+    justify-content: center;
+}
+.container .inpfeild i{
+    padding:10px ;
+    font-size: 25px;
+}
+.container .inpfeild .inp{
+    margin: 10px;
+   width: 250px;
+   height: 35px;
+}
+.container .datafeild{
+    margin: 5px;
+    
+}
+.container .item_list{
+    margin: 5px;
+    padding: 5PX;
+    display: flex;
+
+}
+.container .item_list i{
+    margin:0 10px 0 20px ;
+    padding-top: 8px;
+
+}
+.container .deletIcon{
+    margin: 15px;
+}
+.container .inp{
+    border: 2px solid black;
+    border-radius: 5px;
+}
+.container .mainbtn{
+    display: flex;
+    justify-content: center ;
+}
+
