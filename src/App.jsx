@@ -86,9 +86,14 @@ const App = () => {
                             arr.map((elem) => {
                                 return (
                                     <div className='item_list'>
-                                        <h2>{elem.name}</h2>
-                                        <i class="fas fa-edit" onClick={() => { editItem(elem.id) }} />
-                                        <i className="fas fa-trash deletIcon " onClick={() => { deleteItems(elem.id) }} />
+                                        <div className='data'>
+                                            <h2>{elem.name}</h2>
+                                        </div>
+                                        <div className='icons'>
+
+                                            <i class="fas fa-edit" onClick={() => { editItem(elem.id) }} />
+                                            <i className="fas fa-trash deletIcon " onClick={() => { deleteItems(elem.id) }} />
+                                        </div>
                                     </div>
                                 );
                             })

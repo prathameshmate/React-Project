@@ -12,6 +12,7 @@
 .container .inpfeild{
     display: flex;
     justify-content: center;
+    
 }
 .container .inpfeild i{
     padding:10px ;
@@ -19,18 +20,28 @@
 }
 .container .inpfeild .inp{
     margin: 10px;
-   width: 250px;
+   width: 350px;
    height: 35px;
+   font-size: 16px;
+   font-weight: bold;
 }
 .container .datafeild{
-    margin: 5px;
-    
+    margin: 5px;    
+}
+.container .datafeild .item_list{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    border-radius: 5px;
+}
+.container .datafeild .icons{
+    display: flex;
+    justify-content: flex-end;
 }
 .container .item_list{
     margin: 5px;
     padding: 5PX;
     display: flex;
-
 }
 .container .item_list i{
     margin:0 10px 0 20px ;
