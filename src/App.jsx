@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+
 const App = () => {
 
     const [data, upadateData] = useState("");
     const [arr, updateArr] = useState([]);
     const [toggle, updateToggle] = useState(true);
-    const [isEditItem, updataIsEditItem] = useState();
+    const [isEditItem, updateIsEditItem] = useState("");
 
     const item = (event) => {
         const value = event.target.value;
@@ -15,30 +19,35 @@ const App = () => {
     const addItems = () => {
 
         if (!data || data[0] === " ") {
-            alert("fill the data...");
+            toast.error("Fill the data..." ,{position: "bottom-center" ,autoClose: 3000});
         }
         else if (!toggle && data) {
-            updateArr(
-                arr.map((elem) => {
-                    if (isEditItem === elem.id) {
-                        return { ...elem, name: data }
-                    }
-                    return elem;
-                })
 
-            );
+            const newArr = arr.map((elem) => {
+                if (isEditItem === elem.id) {
+                    return { ...elem, name: data };
+                }
+                return elem;
+            })
+            updateArr(newArr);
+
+            toast.success("Data update successfully..." ,{position: "bottom-center" , autoClose: 3000});
 
             upadateData("");
-            updataIsEditItem(null);
+            updateIsEditItem(null);
             updateToggle("True");
 
         }
         else {
             const obj = { name: data, id: new Date().getTime().toString() }
-            updateArr((arr) => {
+            updateArr(() => {
                 return ([...arr, obj]);
             })
+
+            toast.success("Data added successfully..." ,{position: "bottom-center" , autoClose: 3000});
+
             upadateData("");
+
         }
     }
 
@@ -60,13 +69,14 @@ const App = () => {
         const accesObj = arr.find((elem) => {
             return (getID === elem.id);
         })
-        console.log(accesObj)
+
+        // console.log(accesObj)
 
         updateToggle(false);
 
         upadateData(accesObj.name);
 
-        updataIsEditItem(getID);
+        updateIsEditItem(getID);
 
     }
     return (
@@ -85,13 +95,13 @@ const App = () => {
                         {
                             arr.map((elem) => {
                                 return (
-                                    <div className='item_list'>
+                                    <div className='item_list' key={elem.id}>
                                         <div className='data'>
                                             <h2>{elem.name}</h2>
                                         </div>
                                         <div className='icons'>
 
-                                            <i class="fas fa-edit" onClick={() => { editItem(elem.id) }} />
+                                            <i className="fas fa-edit" onClick={() => { editItem(elem.id) }} />
                                             <i className="fas fa-trash deletIcon " onClick={() => { deleteItems(elem.id) }} />
                                         </div>
                                     </div>
@@ -104,6 +114,7 @@ const App = () => {
                         <button type="button" className="btn btn-primary" onClick={clearAll}>Clear All</button>
                     </div>
                 </div>
+                <ToastContainer/>
             </div>
         </>
     );
