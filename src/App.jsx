@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 
+//getting data from local storage
+const getData = () => {
+    const getStrArr = localStorage.getItem("Lists");
+
+    // console.log(getStrArr);
+
+    if (getStrArr) {
+        return JSON.parse(getStrArr);
+    }
+    else{
+        return [];
+    }
+
+}
+
 const App = () => {
 
     const [data, upadateData] = useState("");
-    const [arr, updateArr] = useState([]);
+    const [arr, updateArr] = useState(getData());
     const [toggle, updateToggle] = useState(true);
     const [isEditItem, updateIsEditItem] = useState("");
+
+    // adding data into localstorage
+    useEffect(() => {
+        localStorage.setItem("Lists", JSON.stringify(arr))
+    }, [arr])
 
     const item = (event) => {
         const value = event.target.value;
@@ -19,7 +39,7 @@ const App = () => {
     const addItems = () => {
 
         if (!data || data[0] === " ") {
-            toast.error("Fill the data..." ,{position: "bottom-center" ,autoClose: 3000});
+            toast.warn("Fill The Data...", { position: "bottom-center", autoClose: 3000 });
         }
         else if (!toggle && data) {
 
@@ -31,7 +51,7 @@ const App = () => {
             })
             updateArr(newArr);
 
-            toast.success("Data update successfully..." ,{position: "bottom-center" , autoClose: 3000});
+            toast.success("Data Update Successfully...", { position: "bottom-center", autoClose: 3000 });
 
             upadateData("");
             updateIsEditItem(null);
@@ -44,7 +64,7 @@ const App = () => {
                 return ([...arr, obj]);
             })
 
-            toast.success("Data added successfully..." ,{position: "bottom-center" , autoClose: 3000});
+            toast.success("Data Added Successfully...", { position: "bottom-center", autoClose: 3000 });
 
             upadateData("");
 
@@ -57,10 +77,13 @@ const App = () => {
         });
 
         updateArr(newArr);
+
+        toast.success("Data Remove Successfully... " , {position : "bottom-center" , autoClose : 3000 })
     }
 
     const clearAll = () => {
         updateArr([]);
+        toast.success("All Data Remove Successfully..." , {position : "bottom-center" , autoClose : 3000})
     }
 
     //edit Items
@@ -114,7 +137,7 @@ const App = () => {
                         <button type="button" className="btn btn-primary" onClick={clearAll}>Clear All</button>
                     </div>
                 </div>
-                <ToastContainer/>
+                <ToastContainer />
             </div>
         </>
     );
